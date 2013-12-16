@@ -46,12 +46,13 @@ import java.util.concurrent.*;
  *     }
  * </pre>
  *
- * <p>Sometimes, we are interested in processing elements in parallel and retrieve the.</p>
+ * <p>The ForEach function can be used as a parallel map function to transform a collection of elements
+ * in parallel. For example, suppose we want to convert a list of words to upper case:</p>
  * <pre>
- *     {@code new ForEach<Integer,String>(elements)
+ *     {@code Collection<String> upperCaseWords = new ForEach<Integer,String>(elements)
  *                  .apply(new Function<String>(){
  *                       public Integer apply(String element){
- *                             return element.length();
+ *                             return element.toUpperCase();
  *                       }
  *                   }).values();
  *     }
