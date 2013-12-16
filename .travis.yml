@@ -1,0 +1,6 @@
+language: java
+jdk:
+  - oraclejdk6
+  - openjdk6
+before_install:
+    - mvn -version
