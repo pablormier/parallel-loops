@@ -11,5 +11,5 @@ Collection<String> upperCaseWords =
             public String apply(String s) {
                 return s.toUpperCase();
             }
-        });
+        }).values();
 ```
