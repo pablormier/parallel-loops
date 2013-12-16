@@ -52,8 +52,8 @@ public class BenchmarkTest {
         sp += speedup(9999999, 100, 5);
         sp += speedup(99999999, 10, 5);
         sp /= 5;
-        System.out.println("Average speedup in this machine: " + sp);
-        assertTrue(sp > 1);
+        System.out.println("Processors: " + Runtime.getRuntime().availableProcessors() + ". Average speedup in this machine: " + sp);
+        assertTrue(sp >= 1);
     }
 
     public int seqPrimeDecomposition(List<Integer> numbers){
