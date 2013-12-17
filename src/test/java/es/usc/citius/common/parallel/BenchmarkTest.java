@@ -16,21 +16,19 @@ public class BenchmarkTest {
         int primes = 0;
         for(int i=0; i<times; i++){
             long start = System.currentTimeMillis();
-            primes = seqPrimeDecomposition(numbers);
+            primes = seqPrimeChecking(numbers);
             long time = System.currentTimeMillis() - start;
             bestSeqTime = Math.min(bestSeqTime, time);
         }
-        //System.out.println("Best sequential time: " + bestSeqTime + " ms (" + primes + " primes found)");
 
         // Compute best parallel time
         long bestParTime = Long.MAX_VALUE;
         for(int i=0; i<times; i++){
             long start = System.currentTimeMillis();
-            primes = parallelPrimeDecomposition(numbers);
+            primes = parallelPrimeChecking(numbers);
             long time = System.currentTimeMillis() - start;
             bestParTime = Math.min(bestParTime, time);
         }
-        //System.out.println("Best parallel time: " + bestParTime + " ms (" + primes + " primes found)");
 
         // Compute speedup
         if (bestParTime == 0) return 0;
@@ -46,7 +44,7 @@ public class BenchmarkTest {
         }
 
         float sp;
-        sp = speedup(9999, 100000, 5);
+        sp  = speedup(9999, 100000, 5);
         sp += speedup(99999, 10000, 5);
         sp += speedup(999999, 1000, 5);
         sp += speedup(9999999, 100, 5);
@@ -56,8 +54,7 @@ public class BenchmarkTest {
         assertTrue(sp >= 1);
     }
 
-    public int seqPrimeDecomposition(List<Integer> numbers){
-        // Generate big random integers
+    public int seqPrimeChecking(List<Integer> numbers){
         int totalPrimes = 0;
         for(Integer i : numbers){
             if (isPrime(i)){
@@ -67,7 +64,7 @@ public class BenchmarkTest {
         return totalPrimes;
     }
 
-    public int parallelPrimeDecomposition(List<Integer> numbers){
+    public int parallelPrimeChecking(List<Integer> numbers){
         Collection<Boolean> primes = Parallel.ForEach(numbers, new Parallel.F<Integer, Boolean>() {
             @Override
             public Boolean apply(Integer number) {
