@@ -3,4 +3,6 @@ jdk:
   - oraclejdk7
   - openjdk6
 before_install:
-    - mvn -version
+  - mvn -version
+after_success:
+  - mvn clean cobertura:cobertura coveralls:cobertura
