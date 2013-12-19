@@ -12,7 +12,7 @@
     <name>parallel-loops</name>
     <groupId>es.usc.citius.common</groupId>
     <artifactId>parallel-loops</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <organization>
         <name>Centro de Investigación en Tecnoloxías da Información (CITIUS), University of Santiago de Compostela</name>
@@ -37,7 +37,7 @@
         <connection>scm:git:git@github.com:pablormier/parallel-loops.git</connection>
         <developerConnection>scm:git:git@github.com:pablormier/parallel-loops.git</developerConnection>
         <url>scm:git:git@github.com:pablormier/parallel-loops.git</url>
-      <tag>parallel-loops-1.0</tag>
+      <tag>HEAD</tag>
   </scm>
     <developers>
         <developer>
