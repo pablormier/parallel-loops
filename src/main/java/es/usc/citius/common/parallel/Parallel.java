@@ -256,6 +256,7 @@ public final class Parallel {
             }
             return mappedTasks;
         }
+
     }
 
     /**
@@ -269,7 +270,10 @@ public final class Parallel {
     public static <A, V> Collection<V> ForEach(Iterable<A> elements,
                                                F<A, V> task) {
         try {
-            return new ForEach<A, V>(elements).apply(task).values();
+            TaskHandler<V> loop = new ForEach<A, V>(elements).apply(task);
+            Collection<V> values = loop.values();
+            loop.executorService.shutdown();
+            return values;
         } catch (Exception e) {
             throw new RuntimeException("ForEach method interrupted. "
                     + e.getMessage());

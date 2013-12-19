@@ -3,6 +3,7 @@ package es.usc.citius.common.parallel;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertEquals;
@@ -18,6 +19,7 @@ public class ParallelTest {
                 return s.length();
             }
         });
+
         int total = 0;
         for(Integer i : result) {total += i;}
         assertEquals(10, total);
