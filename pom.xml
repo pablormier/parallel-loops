@@ -3,11 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <properties>
         <java.version>1.6</java.version>
     </properties>
-
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
@@ -16,22 +14,17 @@
     <name>parallel-loops</name>
     <groupId>es.usc.citius.common</groupId>
     <artifactId>parallel-loops</artifactId>
-    <version>1.0</version>
-
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <organization>
         <name>Centro de Investigación en Tecnoloxías da Información (CITIUS), University of Santiago de Compostela</name>
         <url>http://citius.usc.es</url>
     </organization>
-
     <issueManagement>
         <system>GitHub</system>
         <url>http://github.com/pablormier/parallel-loops/issues</url>
     </issueManagement>
-
     <inceptionYear>2013</inceptionYear>
-
     <licenses>
         <license>
             <name>The MIT License</name>
@@ -39,17 +32,14 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
     <prerequisites>
         <maven>3.0.3</maven>
     </prerequisites>
-
     <scm>
         <connection>scm:git:git@github.com:pablormier/parallel-loops.git</connection>
         <developerConnection>scm:git:git@github.com:pablormier/parallel-loops.git</developerConnection>
         <url>scm:git:git@github.com:pablormier/parallel-loops.git</url>
     </scm>
-
     <developers>
         <developer>
             <id>pablormier</id>
@@ -61,7 +51,6 @@
             </roles>
         </developer>
     </developers>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -70,7 +59,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -131,7 +119,54 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
