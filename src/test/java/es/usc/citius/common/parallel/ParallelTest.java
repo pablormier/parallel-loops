@@ -3,6 +3,7 @@ package es.usc.citius.common.parallel;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -89,5 +90,17 @@ public class ParallelTest {
                 }).values();
 
         assertEquals(4, map.keySet().size());
+    }
+
+    @Test
+    public void testPrepareTasks() throws Exception {
+        Callable<Parallel.TaskHandler<Integer>> tasks = new Parallel.ForEach<Integer, Integer>(iterable(10))
+                .prepare(new Parallel.F<Integer, Integer>() {
+                    @Override
+                    public Integer apply(Integer integer) {
+                        return integer;
+                    }
+                });
+        assertEquals(10, new HashSet<Integer>(tasks.call().values()).size());
     }
 }
