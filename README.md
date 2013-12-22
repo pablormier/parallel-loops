@@ -13,3 +13,15 @@ Collection<String> upperCaseWords =
             }
         });
 ```
+
+## Usage
+
+If you use Maven, just paste the following snippet into your pom.xml:
+
+```xml
+<dependency>
+    <groupId>es.usc.citius.common</groupId>
+    <artifactId>parallel-loops</artifactId>
+    <version>1.0</version>
+</dependency>
+```
