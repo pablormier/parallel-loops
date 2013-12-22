@@ -163,7 +163,8 @@ public final class Parallel {
                 ExecutionException {
             Collection<V> results = new LinkedList<V>();
             for (Future<V> future : this.runningTasks) {
-                results.add(future.get());
+                V result = future.get();
+                if (result != null) results.add(future.get());
             }
             return results;
         }
