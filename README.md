@@ -5,6 +5,8 @@ Very simple & lightweight util class for Java to assist the creation of concurre
 
 ## Example
 
+Transform a set of words to upper case in parallel:
+
 ```java
 Collection<String> upperCaseWords = 
         Parallel.ForEach(words, new Parallel.F<String, String>() {
@@ -12,6 +14,18 @@ Collection<String> upperCaseWords =
                 return s.toUpperCase();
             }
         });
+```
+Transform a set of words to upper case but using no more than 4 threads:
+
+```java
+Collection<String> upperCaseWords = 
+            new Parallel.ForEach<String, String>(words)
+                .withFixedThreads(4)
+                .apply(new Parallel.F<String, String>() {
+                    public String apply(String s) {
+                        return s.toUpperCase();
+                    }
+                }).values();
 ```
 
 ## Usage
