@@ -121,10 +121,9 @@ public final class Parallel {
         private ExecutorService executorService;
 
         public TaskHandler(ExecutorService executor,
-                           Collection<Callable<V>> tasks) {
+                           Iterable<Callable<V>> tasks) {
 
             this.executorService = executor;
-
             for (Callable<V> task : tasks) {
                 runningTasks.add(executor.submit(task));
             }
@@ -243,19 +242,36 @@ public final class Parallel {
             return new TaskHandler<V>(executor, map(elements, f));
         }
 
-        private Collection<Callable<V>> map(Iterable<E> elements,
+        private Iterable<Callable<V>> map(final Iterable<E> elements,
                                             final F<E, V> f) {
-            // List of concurrent tasks
-            List<Callable<V>> mappedTasks = new LinkedList<Callable<V>>();
-            // Create a task for each element
-            for (final E element : elements) {
-                mappedTasks.add(new Callable<V>() {
-                    public V call() throws Exception {
-                        return f.apply(element);
-                    }
-                });
-            }
-            return mappedTasks;
+            return new Iterable<Callable<V>>(){
+                @Override
+                public Iterator<Callable<V>> iterator() {
+                    return new Iterator<Callable<V>>() {
+                        Iterator<E> it = elements.iterator();
+
+                        @Override
+                        public boolean hasNext() {
+                            return it.hasNext();
+                        }
+
+                        @Override
+                        public Callable<V> next() {
+                            final E e = it.next();
+                            return new Callable<V>() {
+                                public V call() throws Exception {
+                                    return f.apply(e);
+                                }
+                            };
+                        }
+
+                        @Override
+                        public void remove() {
+                            throw new UnsupportedOperationException();
+                        }
+                    };
+                }
+            };
         }
 
     }
@@ -276,7 +292,7 @@ public final class Parallel {
             loop.executorService.shutdown();
             return values;
         } catch (Exception e) {
-            throw new RuntimeException("ForEach method interrupted. "
+            throw new RuntimeException("ForEach method exception. "
                     + e.getMessage());
         }
     }
