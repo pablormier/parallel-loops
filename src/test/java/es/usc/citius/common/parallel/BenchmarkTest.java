@@ -11,7 +11,7 @@ public class BenchmarkTest {
 
     public float speedup(int minNumberSize, int numbersSize, int times){
         // Compute best sequential time
-        List<Integer> numbers = generateRandomNumbers(minNumberSize, numbersSize);
+        List<Integer> numbers = generateNumbers(minNumberSize, numbersSize);
         long bestSeqTime = Long.MAX_VALUE;
         int primes = 0;
         for(int i=0; i<times; i++){
