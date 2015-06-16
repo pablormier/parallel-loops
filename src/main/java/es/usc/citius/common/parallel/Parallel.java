@@ -329,4 +329,34 @@ public final class Parallel {
         }, action);
     }
 
+    /**
+     * Perform a parallel iteration, similar to {@code for(i=from;i<to;i++)}
+     * but launching one thread per iteration.
+     *
+     * @param from   starting index
+     * @param to     upper bound
+     * @param action the action to perform in each iteration
+     */
+    public static void For(final int from, final int to, final Action<Integer> action) {
+
+        ForEach(new Iterable<Integer>() {
+            public Iterator<Integer> iterator() {
+                return new Iterator<Integer>() {
+                    private int current = from;
+
+                    public boolean hasNext() {
+                        return current < to;
+                    }
+
+                    public Integer next() {
+                        return current++;
+                    }
+
+                    public void remove() {
+                        throw new UnsupportedOperationException();
+                    }
+                };
+            }
+        }, action);
+    }
 }
