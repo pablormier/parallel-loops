@@ -12,7 +12,7 @@
     <name>parallel-loops</name>
     <groupId>es.usc.citius.common</groupId>
     <artifactId>parallel-loops</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
     <organization>
         <name>Centro de Investigación en Tecnoloxías da Información (CITIUS), University of Santiago de Compostela</name>
