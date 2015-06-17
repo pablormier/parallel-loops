@@ -163,8 +163,9 @@ public final class Parallel {
             Collection<V> results = new LinkedList<V>();
             for (Future<V> future : this.runningTasks) {
                 V result = future.get();
-                if (result != null) results.add(future.get());
+                if (result != null) results.add(result);
             }
+            this.executorService.shutdown();
             return results;
         }
     }
